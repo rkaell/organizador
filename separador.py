@@ -7,6 +7,7 @@ Atualização 18/10/2017 - 10:38
 """
 
 import os
+import shutil
 import datetime
 from tkinter import messagebox as mBox
 
@@ -55,12 +56,13 @@ def lendo_arquivos_movendo():
                     if arq[5:7] == meses[mes]:
                         try:
                             os.makedirs(os.getcwd() + "\\" + arq[0:4] + "\\"+ mes)
-                            os.rename(src_file, os.getcwd() + "\\" + arq[0:4] + "\\" + mes + "\\" + arquivo)
+                            shutil.move(src_file, os.getcwd() + "\\" + arq[0:4] + "\\" + mes + "\\" + arquivo)
                             print((src_file + "\n\tsalvo na pasta de "+ mes + arq[0:4]),file=open("organizador.log","a"))
                         except:
-                            os.rename(src_file, os.getcwd() + "\\" + arq[0:4] + "\\" + mes + "\\" + arquivo)
+                            shutil.move(src_file, os.getcwd() + "\\" + arq[0:4] + "\\" + mes + "\\" + arquivo)
+                            print((src_file + "\n\tsalvo na pasta de " + mes + arq[0:4]),file=open("organizador.log", "a"))
                     else:
-                        pass
+                        print("erro")
             else:
                 print("pasta %s" % arquivo, file=open("organizador.log","a"))
         except:
@@ -77,7 +79,7 @@ def arquivo_mais_antigo():
         else:
             pass
     try:
-        mais_antigo = max(list_ano_arq)
+        mais_antigo = min(list_ano_arq)
     except:
         mais_antigo = "Diretório sem arquivos"
     return mais_antigo

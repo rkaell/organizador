@@ -48,8 +48,12 @@ class Janela:
         LUGAR = self.file_objeto
         os.chdir(LUGAR)
         sp.lendo_arquivos_movendo()
-        for _, _, arquivo in os.walk("."):
-            print(os.path.abspath(str(arquivo)), file=open("organizador.log", "a"))
+        try:
+            for _, _, arquivo in os.walk("."):
+                distino = os.path.realpath(str(arquivo))
+                print(distino, file=open("organizador.log", "a"))
+        except:
+            print("caminho muito longo", file=open("organizador.log", "a"))
         mBox._show("ARQUIVOS MOVIDOS","SUCESSO")
 
     def cancelar(self):
